@@ -1,0 +1,24 @@
+.wrapper {
+    height: 300px;
+    width: 960px;
+}
+
+.line {
+    stroke: gray;
+    stroke-width: 1px;
+    fill: transparent
+}
+
+.axis path,
+.axis line {
+    fill: transparent;
+    stroke: #D8D8D8;
+    shape-rendering: crispEdges;
+}
+
+.x,
+.y {
+    font-family: arial;
+    font-size: 11px;
+    font-weight: bold;
+}
