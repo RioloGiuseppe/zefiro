@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<script src="js/d3.v3.min.js"></script>
-<script src="js/jquery-1.11.3.min.js"></script>
-<script src="js/underscore.js"></script>
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/underscore.js"></script>
+<script type="text/javascript" src="/js/jquery.flot.min.js"></script>
+<script type="text/javascript" src="/js/jquery.flot.time.js"></script>    
+<script type="text/javascript" src="/js/jshashtable-2.1.js"></script>    
+<script type="text/javascript" src="/js/jquery.numberformatter-1.2.3.min.js"></script>
+<script type="text/javascript" src="/js/jquery.flot.symbol.js"></script>
+<script type="text/javascript" src="/js/jquery.flot.axislabels.js"></script>
 <link rel="stylesheet" type="text/css" href="css/app.css">
 
 <title>
@@ -11,193 +16,98 @@
 
 <body>
     <h1>CPU Usage</h1>
-    <div class='wrapper'></div>
-
-    <script>
-        var
-            n = 80,
-            random = d3.random.normal(0, 5),
-            data = d3.range(n).map(function(i) {
-                return random()
-            }),
-            dataMin = Math.floor(d3.min(data)),
-            dataMax = Math.ceil(d3.max(data)),
-            currentHeight = 0,
-            margin = {
-                top: 30,
-                right: 20,
-                bottom: 30,
-                left: 40
-            },
-            width,
-            height,
-            svg,
-            x,
-            y,
-            line,
-            path,
-            duration = 500,
-            now = new Date(Date.now() - duration),
-            transition,
-            count = 0,
-            axisX,
-            axisY,
-            xLine;
+<script>
+var data = [];
+var dataset;
+var totalPoints = 100;
+var updateInterval = 1000;
+var now = new Date().getTime();
 
 
-        var determineWidthAndHeight = function() {
-            width = $('.wrapper').width() - margin.left - margin.right,
-                height = $('.wrapper').height() - margin.top - margin.bottom;
-        };
+function GetData() {
+    data.shift();
 
+    while (data.length < totalPoints) {     
+        var y = Math.random() * 100;
+        var temp = [now += updateInterval, y];
 
-        var createXScale = function() {
-            xLine = d3.scale.linear()
-                .domain([0, n - 1])
-                .range([0, width]);
+        data.push(temp);
+    }
+}
 
-            x = d3.time.scale()
-                .domain([now - (n - 2) * duration, now - duration])
-                .range([0, width]);
+var options = {
+    //series: {lines: {show: true,lineWidth: 1.2,fill: true}},
+    xaxis: {
+        mode: "time",
+        tickSize: [2, "second"],
+        tickFormatter: function (v, axis) {
+            var date = new Date(v);
 
-        };
+            if (date.getSeconds() % 30 == 0) {
+                var hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+                var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+                var seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
 
+                return hours + ":" + minutes + ":" + seconds;
+            } else {
+                return "";
+            }
+        },
+        axisLabelUseCanvas: true,
+        axisLabelFontSizePixels: 12,
+        axisLabelFontFamily: 'Verdana, Arial',
+        axisLabelPadding: 10
+    },
+    yaxis: {
+        min: 0,
+        max: 100,        
+        tickSize: 5,
+        tickFormatter: function (v, axis) {
+            if (v % 10 == 0) {
+                return v + "%";
+            } else {
+                return "";
+            }
+        },
+        axisLabelUseCanvas: true,
+        axisLabelFontSizePixels: 12,
+        axisLabelFontFamily: 'Verdana, Arial',
+        axisLabelPadding: 6
+    },
+    legend: {        
+        labelBoxBorderColor: "#fff"
+    },
+    grid: {                
+        backgroundColor: "#FFFFFF",
+        tickColor: "#F4F4F4"
+    }
+};
 
-        var updateDomains = function() {
-            dataMin = Math.floor(d3.min(data));
-            dataMax = Math.ceil(d3.max(data));
-            now = new Date();
-            x.domain([now - (n - 2) * duration, now - duration]);
-            y.domain([dataMin, dataMax]);
-        };
+$(document).ready(function () {
+    GetData();
 
+    dataset = [
+        //{ label: "CPU", data: data, color: "#00FF00" },
+	    { label: "CPU2", data: data, color: "#00FFFF" }
+    ];
 
-        var updateAxes = function() {
-            axisX.attr("transform", "translate(0," + y(0) + ")")
-            axisX.call(x.axis);
-            axisY.call(y.axis);
-        };
+    $.plot($("#flot-placeholder1"), dataset, options);
 
+    function update() {
+        GetData();
 
-        var createYScale = function() {
-            y = d3.scale.linear()
-                .domain([dataMin, dataMax])
-                .range([height, 0]);
-        };
+        $.plot($("#flot-placeholder1"), dataset, options)
+        setTimeout(update, updateInterval);
+    }
 
-
-        var crateScales = function() {
-            createYScale();
-            createXScale();
-        }
-
-
-        var createSVG = function() {
-            svg = d3.select(".wrapper").append("svg").attr('class', 'svg')
-                .attr("width", width + margin.left + margin.right)
-                .attr("height", height + margin.top + margin.bottom)
-                .append("g")
-                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-        };
-
-
-        var createLine = function() {
-            line = d3.svg.line()
-                .x(function(d, i) {
-                    return xLine(i);
-                })
-                .y(function(d, i) {
-                    return y(d);
-                })
-        };
-
-
-        var createXAxis = function() {
-            axisX = svg.append("g")
-                .attr("class", "x axis")
-                .attr("transform", "translate(0," + y(0) + ")")
-                .call(x.axis = d3.svg.axis().scale(x).orient("bottom")
-                    .ticks(15)
-                    .tickFormat(d3.time.format("%H:%M:%S")));
-        };
-
-
-        var createYAxis = function() {
-            axisY = svg.append("g")
-                .attr("class", "y axis")
-                .call(y.axis = d3.svg.axis().scale(y).orient("left"));
-        };
-
-
-        var appendAxis = function() {
-            createXAxis();
-            createYAxis();
-        };
-
-
-        var applyPathMagic = function() {
-            svg.append("defs").append("clipPath")
-                .attr("id", "clip")
-                .append("rect")
-                .attr("width", width)
-                .attr("height", height);
-            path = svg.append("g")
-                .attr("clip-path", "url(#clip)")
-                .append("path")
-                .datum(data)
-                .attr("class", "line")
-                .attr("d", line);
-        };
-
-
-        var render = function() {
-            determineWidthAndHeight();
-            crateScales();
-            createSVG();
-            createLine();
-            appendAxis();
-            applyPathMagic();
-        };
-
-
-        transition = d3.select({}).transition()
-            .duration(duration)
-            .ease("linear");
+    update();
+});
 
 
 
-        var tick = function() {
-
-            transition = transition.each(function() {
-
-
-                data.push(random());
-                path.attr("d", line)
-                    .attr("transform", null)
-                    .transition()
-                    .ease('linear')
-                    .duration(duration)
-                    .attr("transform", "translate(" + xLine(-1) + ",0)")
-
-                svg.select(".line")
-                    .attr("d", line)
-                    .attr("transform", null);
-
-                updateDomains();
-                updateAxes();
-
-                path.transition()
-                    .attr("transform", "translate(" + x(now - (n - 1) * duration) + ")");
-
-                data.shift();
-            }).transition().each("start", tick);
-
-        };
-
-
-        render();
-        tick();
-    </script>
+</script>
+<!-- HTML -->
+<div id="flot-placeholder1" style="width:100%;height:300px;margin:0 auto"></div>
 </body>
 
 </html>
