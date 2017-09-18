@@ -8,7 +8,7 @@ var temps = new TimeSeries();
 // Avvio la funzione di aggiornamento dei grafici ogni 500ms
 setInterval(function() {
     // Utilizzo la web api per ottenere il carico della cpu corrente
-    fetch('http://localhost:8000/currentLoad')
+    fetch('currentLoad')
         .then(function(response) {
             if (!response.ok)
                 throw Error(response.statusText);
@@ -19,22 +19,6 @@ setInterval(function() {
             total.append(new Date().getTime(), responseAsJson.total);
             user.append(new Date().getTime(), responseAsJson.user);
             system.append(new Date().getTime(), responseAsJson.system);
-        })
-        // In caso di errore scrivo 'error' in console
-        .catch(function(error) {
-            console.error('Looks like there was a problem: \n', error);
-        });
-
-    // Utilizzo la web api per ottenere la temperatura della cpu corrente
-    fetch('http://localhost:8000/currentTemp')
-        .then(function(response) {
-            if (!response.ok)
-                throw Error(response.statusText);
-            return response.json();
-        })
-        .then(function(responseAsJson) {
-            // Risolte le promises aggiungo l'elemento alla serie temporale
-            temps.append(new Date().getTime(), responseAsJson);
         })
         // In caso di errore scrivo 'error' in console
         .catch(function(error) {
@@ -51,7 +35,4 @@ $(function() {
     chartLoad.addTimeSeries(system, { lineWidth: 1.3, strokeStyle: '#ff0000', fillStyle: 'rgba(255,0,0,0.30)' });
     // ..avvio lo stream dei dati
     chartLoad.streamTo(document.getElementById("cpu-usage-chart"), 500);
-    var chartTemp = new SmoothieChart({ responsive: true, millisPerPixel: 54, interpolation: 'linear', grid: { strokeStyle: 'rgba(211,211,211,0.47)', sharpLines: true, verticalSections: 6 }, tooltip: true, maxValue: 100, minValue: -2 });
-    chartTemp.addTimeSeries(temps, { lineWidth: 1.3, strokeStyle: '#ff0000', fillStyle: 'rgba(255,0,0,0.30)' });
-    chartTemp.streamTo(document.getElementById("cpu-temp-chart"), 500);
 });
