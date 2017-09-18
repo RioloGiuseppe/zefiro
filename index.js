@@ -45,7 +45,22 @@ server.register(require('inert'), (err) => {
         method: 'GET',
         path: '/currentLoad',
         handler: async function(request, reply) {
-            return reply(await si.currentLoad());
+            var _cpu = await si.currentLoad();
+            var ret = {
+                total: _cpu.currentload,
+                user: _cpu.currentload_user,
+                system: _cpu.currentload_system
+            }
+            return reply(ret);
+        }
+    });
+
+    server.route({
+        method: 'GET',
+        path: '/currentTemp',
+        handler: async function(request, reply) {
+            var _temp = await si.cpuTemperature();
+            return reply(_temp.main);
         }
     });
 
