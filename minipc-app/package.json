@@ -1,0 +1,31 @@
+{
+    "name": "zefiro",
+    "version": "1.0.0",
+    "description": "demo per corso zefiro",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/RioloGiuseppe/zefiro.git"
+    },
+    "keywords": [
+        "zefiro"
+    ],
+    "author": "Giuseppe Riolo",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/RioloGiuseppe/zefiro/issues"
+    },
+    "homepage": "https://github.com/RioloGiuseppe/zefiro#readme",
+    "dependencies": {
+        "hapi": "^16.6.0",
+        "i2c-bus": "^1.2.2",
+        "inert": "^4.2.1",
+        "path": "^0.12.7",
+        "pcf8574": "^1.1.0",
+        "systeminformation": "^3.27.1",
+        "util": "^0.10.3"
+    }
+}
