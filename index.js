@@ -36,7 +36,7 @@ async function writeDB(callback) {
 
 // Imposto l'endpoint del server
 server.connection({
-    host: 'localhost',
+    host: '0.0.0.0',
     port: 8000
 });
 server.register(require('inert'), (err) => {
@@ -78,7 +78,7 @@ server.register(require('inert'), (err) => {
 
 
     // avvio la lettura info/ scrittura db con periodicità un sec
-    //setInterval(writeDB, 1000);
+    setInterval(writeDB, 1000);
 
     // Avvio il server http
     server.start((err) => {

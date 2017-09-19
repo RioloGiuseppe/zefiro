@@ -1,31 +1,30 @@
 {
-  "name": "zefiro",
-  "version": "1.0.0",
-  "description": "demo per corso zefiro",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/RioloGiuseppe/zefiro.git"
-  },
-  "keywords": [
-    "zefiro"
-  ],
-  "author": "Giuseppe Riolo",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/RioloGiuseppe/zefiro/issues"
-  },
-  "homepage": "https://github.com/RioloGiuseppe/zefiro#readme",
-  "dependencies": {
-    "chart.js": "^2.7.0",
-    "hapi": "^16.6.0",
-    "inert": "^4.2.1",
-    "mongodb": "^2.2.31",
-    "path": "^0.12.7",
-    "systeminformation": "^3.27.1",
-    "util": "^0.10.3"
-  }
+    "name": "zefiro",
+    "version": "1.0.0",
+    "description": "demo per corso zefiro",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/RioloGiuseppe/zefiro.git"
+    },
+    "keywords": [
+        "zefiro"
+    ],
+    "author": "Giuseppe Riolo",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/RioloGiuseppe/zefiro/issues"
+    },
+    "homepage": "https://github.com/RioloGiuseppe/zefiro#readme",
+    "dependencies": {
+        "hapi": "^16.6.0",
+        "inert": "^4.2.1",
+        "mongodb": "^2.2.31",
+        "path": "^0.12.7",
+        "systeminformation": "^3.27.1",
+        "util": "^0.10.3"
+    }
 }
