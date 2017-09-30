@@ -1,0 +1,8 @@
+{
+  "name": "xbee_sample_2",
+  "version": "0.0.1",
+  "dependencies": {
+    "colors": "^1.1.2",
+    "xbee-promise": "^1.0.0"
+  }
+}

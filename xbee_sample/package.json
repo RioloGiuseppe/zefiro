@@ -1,0 +1,9 @@
+{
+  "name": "xbee_sample",
+  "version": "0.0.1",
+  "dependencies": {
+    "colors": "^1.1.2",
+    "serialport": "^5.0.0",
+    "xbee-api": "^0.5.3"
+  }
+}

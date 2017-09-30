@@ -57,3 +57,5 @@ typings/
 
 # dotenv environment variables file
 .env
+xbee_sample_2/.idea/
+xbee_sample/.idea/
