@@ -1,6 +1,7 @@
 // Importo le dipendenze necessarie per l'esecuzione del codice
 // Web-server
 const Hapi = require('hapi');
+const Nes = require('nes');
 // Systeminformation
 const si = require('systeminformation');
 const mqtt = require('mqtt');
@@ -13,6 +14,8 @@ var PCF8574 = require('pcf8574').PCF8574;
 // Indirizzo sul bus del port expander (Datasheet)
 var pcf_addr = 0x38;
 var pcf = new PCF8574(i2cBus, pcf_addr, true);
+
+var hapiStarted = false;
 
 var clientMqtt = mqtt.connect({
     protocol: 'mqtt',
@@ -27,6 +30,8 @@ clientMqtt.on('connect', function() {
 });
 
 clientMqtt.on('message', function(topic, payload) {
+    if (hapiStarted)
+        server.publish('/item/5', { topic: topic, data: payload.toString() });
     console.log('Ricevuto via MQTT: %s, %s', topic, payload.toString());
 
 });
@@ -88,9 +93,16 @@ server.register(require('inert'), (err) => {
         }
     });
 
+    server.register(Nes, function(err) {
+        server.subscription('/item/{id}');
+    });
+
     // Avvio il server http
     server.start((err) => {
         if (err) error = true;
-        console.log('Server running at:', server.info.uri);
+        else {
+            hapiStarted = true;
+            console.log('Server running at:', server.info.uri);
+        }
     });
 });
