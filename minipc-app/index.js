@@ -86,7 +86,7 @@ server.register(require('inert'), (err) => {
 
     server.route({
         method: 'GET',
-        path: '/dev-button/{mac}',
+        path: '/dev_button/{mac}',
         handler: async function(request, reply) {
             var mac = encodeURIComponent(request.params.mac);
             console.log(mac);
