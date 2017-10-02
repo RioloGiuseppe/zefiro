@@ -83,6 +83,15 @@ server.register(require('inert'), (err) => {
             return reply();
         }
     });
+
+    server.route({
+        method: 'GET',
+        path: '/dev-button/{mac}',
+        handler: async function(request, reply) {
+            var mac = encodeURIComponent(request.params.mac);
+            console.log(mac);
+        }
+    });
     // Gestisce i file statici
     server.route({
         method: 'GET',

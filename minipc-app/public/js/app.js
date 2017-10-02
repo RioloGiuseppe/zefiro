@@ -9,7 +9,7 @@ require(["nes"], function(nes) {
 
         var handler = function(data, flags) {
             console.log(data);
-            if (data.topic === "0013a20040ba9198") {
+            if (data.topic === "0013a20040aded7d") {
                 if (data.data === "BTN=0")
                     $(".led-yellow").addClass("off");
                 else
