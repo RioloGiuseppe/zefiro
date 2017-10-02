@@ -9,25 +9,25 @@ require(["nes"], function(nes) {
 
         var handler = function(data, flags) {
             console.log(data);
-            if (topic === "0013a20040ba9198") {
+            if (data.topic === "0013a20040ba9198") {
                 if (data.data === "BTN=0")
                     $(".led-yellow").addClass("off");
                 else
                     $(".led-yellow").removeClass("off");
             }
-            if (topic === "0013a20040c5cabe") {
+            if (data.topic === "0013a20040c5cabe") {
                 if (data.data === "BTN=0")
                     $(".led-green").addClass("off");
                 else
                     $(".led-green").removeClass("off");
             }
-            if (topic === "0013a20040c5caa9") {
+            if (data.topic === "0013a20040c5caa9") {
                 if (data.data === "BTN=0")
                     $(".led-blue").addClass("off");
                 else
                     $(".led-blue").removeClass("off");
             }
-            if (topic === "0013a20040ba9198") {
+            if (data.topic === "0013a20040ba9198") {
                 if (data.data === "BTN=0")
                     $(".led-red").addClass("off");
                 else
