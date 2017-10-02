@@ -3,6 +3,7 @@
 const Hapi = require('hapi');
 // Systeminformation
 const si = require('systeminformation');
+const mqtt = require('mqtt');
 // File statici (html/js/css)
 var Path = require('path');
 // Gestore del bus i2c
@@ -12,6 +13,26 @@ var PCF8574 = require('pcf8574').PCF8574;
 // Indirizzo sul bus del port expander (Datasheet)
 var pcf_addr = 0x38;
 var pcf = new PCF8574(i2cBus, pcf_addr, true);
+
+var clientMqtt = mqtt.connect({
+    protocol: 'mqtt',
+    host: 'ws.mqtt.it',
+    port: 1883
+});
+
+clientMqtt.on('connect', function() {
+    console.log('Connessione a broker MQTT OK');
+
+    clientMqtt.subscribe('/zefiro/zigbee-mqtt-bridge/mqtt-rx/#');
+});
+
+clientMqtt.on('message', function(topic, payload) {
+    console.log('Ricevuto via MQTT: %s, %s', topic, payload.toString());
+
+});
+
+
+
 // Definisco i pin 4..7 uscite, spente, non invertenti
 pcf.outputPin(4, false, false);
 pcf.outputPin(5, false, false);
