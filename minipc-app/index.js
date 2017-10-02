@@ -96,28 +96,28 @@ server.register(require('inert'), (err) => {
             let topic = "/zefiro/zigbee-mqtt-bridge/mqtt-rx/" + mac;
             var mac = encodeURIComponent(request.params.mac);
             if (mac === "0013a20040c5cabe") {
-                dev1_led != dev1_led;
+                dev1_led = !dev1_led;
                 if (dev1_led)
                     clientMqtt.publish(topic, "LED=1");
                 else
                     clientMqtt.publish(topic, "LED=0");
             }
             if (mac === "0013a20040aded7d") {
-                dev2_led != dev2_led;
+                dev2_led = !dev2_led;
                 if (dev2_led)
                     clientMqtt.publish(topic, "LED=1");
                 else
                     clientMqtt.publish(topic, "LED=0");
             }
             if (mac === "0013a20040ba9198") {
-                dev3_led != dev3_led;
+                dev3_led = !dev3_led;
                 if (dev3_led)
                     clientMqtt.publish(topic, "LED=1");
                 else
                     clientMqtt.publish(topic, "LED=0");
             }
             if (mac === "0013a20040c5caa9") {
-                dev4_led != dev4_led;
+                dev4_led = !dev4_led;
                 if (dev4_led)
                     clientMqtt.publish(topic, "LED=1");
                 else
