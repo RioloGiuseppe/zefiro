@@ -23,7 +23,7 @@ var clientMqtt = mqtt.connect({
 clientMqtt.on('connect', function() {
     console.log('Connessione a broker MQTT OK');
 
-    clientMqtt.subscribe('/zefiro/zigbee-mqtt-bridge/mqtt-rx/#');
+    clientMqtt.subscribe('/zefiro/zigbee-mqtt-bridge/zigbee-rx/#');
 });
 
 clientMqtt.on('message', function(topic, payload) {
