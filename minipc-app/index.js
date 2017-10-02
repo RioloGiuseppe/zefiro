@@ -89,7 +89,8 @@ server.register(require('inert'), (err) => {
         path: '/dev_button/{mac}',
         handler: async function(request, reply) {
             var mac = encodeURIComponent(request.params.mac);
-            console.log(mac);
+            let topic = "/zefiro/zigbee-mqtt-bridge/mqtt-rx/" + mac;
+            clientMqtt.publish(topic, "LED=1");
         }
     });
     // Gestisce i file statici
