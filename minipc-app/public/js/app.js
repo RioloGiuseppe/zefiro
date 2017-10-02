@@ -9,6 +9,12 @@ require(["nes"], function(nes) {
 
         var handler = function(data, flags) {
             console.log(data);
+            if (data.data === "BTN=0")
+                $(".led-yellow").addClass("off")
+            else
+                $(".led-yellow").removeClass("off")
+
+
         };
 
         client.subscribe('/item/5', handler, function(err) {});

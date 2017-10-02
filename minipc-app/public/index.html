@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <link href="css/app.css" rel="stylesheet" type="text/css">
+<link href="css/led.css" rel="stylesheet" type="text/css">
 <script data-main="js/main" src="js/require.js"></script>
 <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="js/smoothie.js"></script>
@@ -16,6 +17,26 @@
     <button onclick="fetch('button/1');">Led 2</button>
     <button onclick="fetch('button/2');">Led 3</button>
     <button onclick="fetch('button/3');">Led 4</button>
+
+    <div class="container">
+        <div class="led-box">
+            <div class="led-green"></div>
+            <p>Green LED</p>
+        </div>
+        <div class="led-box">
+            <div class="led-yellow"></div>
+            <p>Yellow LED</p>
+        </div>
+        <div class="led-box">
+            <div class="led-red"></div>
+            <p>Red LED</p>
+        </div>
+        <div class="led-box">
+            <div class="led-blue"></div>
+            <p>Blue LED</p>
+        </div>
+    </div>
+
 </body>
 
 </html>

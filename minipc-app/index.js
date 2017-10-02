@@ -31,7 +31,7 @@ clientMqtt.on('connect', function() {
 
 clientMqtt.on('message', function(topic, payload) {
     if (hapiStarted)
-        server.publish('/item/5', { topic: topic, data: payload.toString() });
+        server.publish('/item/5', { topic: topic.replace("/zefiro/zigbee-mqtt-bridge/zigbee-rx/", ""), data: payload.toString() });
     console.log('Ricevuto via MQTT: %s, %s', topic, payload.toString());
 
 });
