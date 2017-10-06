@@ -23,6 +23,12 @@ const vm = new Moon({
         var msg="Ciao sono le " + (new Date()).toLocaleTimeString();
         this.set("saluto",msg);
         ws.send(msg);
+    },
+    btnMouseUp: function() {
+        console.log("Mouse Up");
+    },
+    btnMouseDown: function() {
+        console.log("Mouse Down");
     }
   },
   computed: {
@@ -49,3 +55,49 @@ const vm = new Moon({
     }
   }
 });
+
+const ws2=new WebSocket("ws://localhost:1880/ws/bridge");
+
+ws2.onopen=function(event) {
+    console.log("WebSocket Bridge aperto");
+}
+
+const vm2 = new Moon({
+  el: "#miaroot2",
+  data: {
+    statoPulsante: "-"
+  },
+  methods: {
+    ledOn: function() {
+        ws2.send("4|LED=1");
+    },
+    ledOff: function() {
+        ws2.send("4|LED=0");
+    },
+  }
+});
+
+ws2.onmessage=function(event) {
+    var msg=event.data;
+    var parts=msg.split("|");
+
+    if(parts.length<2) return;
+
+    switch (parts[0]) {
+        case "4":
+            switch(parts[1]){
+                case "BTN=0":
+                    vm2.set("statoPulsante","OFF");
+                    break;
+
+                case "BTN=1":
+                    vm2.set("statoPulsante","ON");
+                    break;
+            }
+            break;
+    
+        default:
+            break;
+    }
+    
+}

@@ -16,10 +16,21 @@
 
             <div class="row">
                 <div class="column">
-                    <button m-on:click="inviaMessaggio" class="button">Manda Data e Ora</button>
+                    <button m-on:click="inviaMessaggio" m-on:mouseup="btnMouseUp" m-on:mousedown="btnMouseDown" class="button">Manda Data e Ora</button>
                 </div>
             </div>
         </div>
+
+        <hr/>
+
+        <div class="container" id="miaroot2">
+                <div class="row">
+                    <div class="column"><h4>{{statoPulsante}}</h4></div>
+                    <div class="column">
+                        <button m-on:mouseup="ledOff" m-on:mousedown="ledOn" class="button button-outline">Comanda LED</button>
+                    </div>
+                </div>
+            </div>
 
         <script src="https://unpkg.com/moonjs/dist/moon.js"></script>
         <script src="app.js"></script>
