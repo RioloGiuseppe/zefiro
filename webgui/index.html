@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title>WebSocket Test</title>
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+        <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+        <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
+    </head>
+    <body>
+        
+        <div class="container" id="miaroot">
+            <div class="row">
+                <div class="column-30"><h3>{{saluto}}</h3></div>
+                <div class="column-30"><h3>{{reversedSaluto}}</h3></div>
+                <div class="column-40">{{messaggio}}</div>
+            </div>
+
+            <div class="row">
+                <div class="column">
+                    <button m-on:click="inviaMessaggio" class="button">Manda Data e Ora</button>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://unpkg.com/moonjs/dist/moon.js"></script>
+        <script src="app.js"></script>
+    </body>
+</html>
