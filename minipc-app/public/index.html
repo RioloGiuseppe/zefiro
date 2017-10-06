@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <link href="css/app.css" rel="stylesheet" type="text/css">
+<link href="css/led.css" rel="stylesheet" type="text/css">
+<script data-main="js/main" src="js/require.js"></script>
 <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="js/smoothie.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
@@ -15,6 +17,30 @@
     <button onclick="fetch('button/1');">Led 2</button>
     <button onclick="fetch('button/2');">Led 3</button>
     <button onclick="fetch('button/3');">Led 4</button>
+
+    <div class="container">
+        <div class="led-box">
+            <div class="led-green off"></div>
+            <p>Green LED</p>
+            <button onclick="fetch('dev_button/0013a20040c5cabe')" class="button-dev">Dev 1</button>
+        </div>
+        <div class="led-box">
+            <div class="led-yellow off"></div>
+            <p>Yellow LED</p>
+            <button onclick="fetch('dev_button/0013a20040aded7d')" class="button-dev">Dev 2</button>
+        </div>
+        <div class="led-box">
+            <div class="led-red off"></div>
+            <p>Red LED</p>
+            <button onclick="fetch('dev_button/0013a20040ba9198')" class="button-dev">Dev 3</button>
+        </div>
+        <div class="led-box">
+            <div class="led-blue off"></div>
+            <p>Blue LED</p>
+            <button onclick="fetch('dev_button/0013a20040c5caa9')" class="button-dev">Dev 4</button>
+        </div>
+    </div>
+
 </body>
 
 </html>

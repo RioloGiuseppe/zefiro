@@ -7,3 +7,8 @@ div.smoothie-chart-tooltip {
     font-size: 10px;
     pointer-events: none;
 }
+
+.button-dev {
+    width: 90%;
+    margin: 0px 10px 0px 10px;
+}
